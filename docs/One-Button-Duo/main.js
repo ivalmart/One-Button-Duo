@@ -73,11 +73,12 @@ class shape {
     // Decide spawn location
     this.y =  -5;
     this.x = Math.random() * G.WIDTH;
+    this.shapeSpeed = Math.random() * 0.5;
     clamp(this.x, 5, G.WIDTH - 5);
   }
 
   move() {
-    this.y += shapeSpeed;
+    this.y += this.shapeSpeed;
     char(this.shapeChar, this.x, this.y);
   }
 
@@ -140,4 +141,6 @@ function update() {
 
   // Move all shapes
   shapes.forEach(s => s.move());
+  // Check if any shapes went off screen
+  shapes.forEach(s => s.checkScreen());
 }
