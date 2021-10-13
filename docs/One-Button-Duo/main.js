@@ -46,20 +46,9 @@ const G = {
 options = {
   theme: 'pixel'
 };
-/**
- * @typedef {{
- * pos: Vector,
- * }} Player
- */
-
-/**
- * @type { Player }
- */
 
 let player;
-let direction;
 const playerSpeed = 0.5;
-
 let shapeSpeed = 0.25;
 
 class shape {
@@ -95,39 +84,50 @@ class shape {
   }
 }
 
-function update() {
-  if (!ticks) {
-    player = {
-      pos:vec(G.WIDTH * 0.5, G.HEIGHT - 5)
-    };
-    direction = 'north';
+class PlayerShape {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.direction = 'north'
   }
 
+  // Player will be moving in a clockwise motion when pressing button
+  update_Direction() {
+    console.log("direction: " + this.direction);
+    if(this.direction == 'north') { this.direction = 'east'; }   // Head East
+    else if(this.direction == 'east') { this.direction = 'south'; }  // Head South
+    else if(this.direction == 'south') { this.direction = 'west'; }   // Head West
+    else { this.direction = 'north'; }   // Head North
+  }
 
+  // Updates the player's movement given a direction
+  movement() {
+    // checks to see where the player is heading towards && conditions are to check whether it has reached the boundary or not
+    if(this.direction == 'north' && this.y >= 5) {
+      this.y -= playerSpeed;
+    } else if(this.direction == 'east' && this.x <= G.WIDTH - 5) {
+      this.x += playerSpeed
+    } else if(this.direction == 'south' && this.y <= G.HEIGHT - 5) {
+      this.y += playerSpeed
+    } else if(this.direction == 'west' && this.x >= 5) {
+      this.x -= playerSpeed
+    }
+  }
+}
+
+function update() {
+  if (!ticks) {
+    player = new PlayerShape(G.WIDTH * 0.5, G.HEIGHT - 5);
+  }
+
+  // Player changes direction
   if(input.isJustPressed) {
-    // Heading towards
-    console.log("going " + direction);
-    direction = update_Direction(direction)
+    player.update_Direction()
   }
 
   // Movement
-  if(direction == 'north') {
-    player.pos = vec(player.pos.x, player.pos.y - playerSpeed);
-  } else if(direction == 'east') {
-    player.pos = vec(player.pos.x + playerSpeed, player.pos.y);
-  } else if(direction == 'south') {
-    player.pos = vec(player.pos.x, player.pos.y + playerSpeed);
-  } else if(direction == 'west') {
-    player.pos = vec(player.pos.x - playerSpeed, player.pos.y);
-  }
-  char("a", player.pos)
+  player.movement()
 
-}
+  char("a", player.x, player.y)
 
-// Player will be moving in a clockwise motion 
-function update_Direction(current_direction) {
-  if(current_direction == 'north') { return 'east'; }   // Head East
-  else if(current_direction == 'east') { return 'south'; }  // Head South
-  else if(current_direction == 'south') { return 'west'; }   // Head West
-  else { return 'north'; }   // Head North
 }
