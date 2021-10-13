@@ -2,12 +2,21 @@
 // Robert Radzville
 // Ivan Martinez-Arias
 
-title = "Duo Game";
+title = "Button Mash";
 
 description = `
+[Tap]
+Turn Right
 `;
 
 characters = [
+`
+  L  
+     
+L y L
+     
+  L  
+`,
   `
 PPPPP
 P   P
@@ -32,9 +41,9 @@ GGGGG
   `
  RRR
 R   R
-R   R 
 R   R
- RRR  
+R   R
+ RRR
   `
 ];
 
@@ -48,8 +57,7 @@ options = {
 };
 
 let player;
-const playerSpeed = 0.5;
-let shapeSpeed = 0.25;
+const playerSpeed = 0.75;
 let shapes = [];
 
 class shape {
@@ -61,20 +69,24 @@ class shape {
     // Decide the shape
     let shapeNum = Math.floor(Math.random() * 4);
     if (shapeNum == 0) {
-      this.shapeChar = 'a';
-    } else if (shapeNum == 1) {
       this.shapeChar = 'b';
-    } else if (shapeNum == 2) {
+    } else if (shapeNum == 1) {
       this.shapeChar = 'c';
-    } else {
+    } else if (shapeNum == 2) {
       this.shapeChar = 'd';
+    } else {
+      this.shapeChar = 'e';
     }
     
     // Decide spawn location
     this.y =  -5;
     this.x = Math.random() * G.WIDTH;
-    this.shapeSpeed = Math.random() * 0.5;
-    clamp(this.x, 5, G.WIDTH - 5);
+    this.shapeSpeed = Math.random() * 0.5 + .25;
+    if (this.x <= 5) {
+      this.x += 5;
+    } else if (this.x >= G.WIDTH - 5) {
+      this.x -= 5;
+    }
   }
 
   move() {
@@ -87,6 +99,18 @@ class shape {
       this.reset();
     }
   }
+
+  checkCollision() {
+    if (char(this.shapeChar, this.x, this.y).isColliding.char.a) {
+      if (player.shapeChar == this.shapeChar) {
+        score += 1;
+        player.setPlayerShape();
+        this.reset();
+      } else {
+        end();
+      }
+    }
+  }
 }
 
 class PlayerShape {
@@ -94,6 +118,7 @@ class PlayerShape {
     this.x = x;
     this.y = y;
     this.direction = 'north'
+    this.setPlayerShape();
   }
 
   // Player will be moving in a clockwise motion when pressing button
@@ -131,10 +156,24 @@ class PlayerShape {
     PI/4  // The emitting width
   );
   }
+
+  setPlayerShape () {
+    let shapeNum = Math.floor(Math.random() * 4);
+    if (shapeNum == 0) {
+      this.shapeChar = 'b';
+    } else if (shapeNum == 1) {
+      this.shapeChar = 'c';
+    } else if (shapeNum == 2) {
+      this.shapeChar = 'd';
+    } else {
+      this.shapeChar = 'e';
+    }
+  }
 }
 
 function update() {
   if (!ticks) {
+    shapes = [];
     player = new PlayerShape(G.WIDTH * 0.5, G.HEIGHT - 5);
   }
 
@@ -145,15 +184,19 @@ function update() {
 
   // Movement
   player.movement()
-
-  char("a", player.x, player.y)
+  
+  
   if (shapes.length < difficulty * 5) {
     let newShape = new shape();
     shapes.push(newShape);
   }
 
+  char("a", player.x, player.y);
+  char(player.shapeChar, player.x, player.y);
   // Move all shapes
   shapes.forEach(s => s.move());
   // Check if any shapes went off screen
   shapes.forEach(s => s.checkScreen());
+  // Check if any shape
+  shapes.forEach(s => s.checkCollision());
 }
