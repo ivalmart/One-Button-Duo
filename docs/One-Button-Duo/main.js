@@ -81,6 +81,11 @@ class shape {
     } else {
       this.shapeChar = 'e';
     }
+    
+    // Decide spawn location
+    this.y =  -5;
+    this.x = Math.random() * G.WIDTH;
+    clamp(this.x, 5, G.WIDTH - 5);
   }
 
   move() {
