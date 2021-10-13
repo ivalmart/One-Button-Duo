@@ -9,32 +9,32 @@ description = `
 
 characters = [
   `
-  PPPPP
-  P   P
-  P   P
-  P   P
-  PPPPP
+PPPPP
+P   P
+P   P
+P   P
+PPPPP
   `
   ,`
-  B   B
-   B B
-    B
-   B B
-  B   B
+B   B
+ B B
+  B
+ B B
+B   B
   `,
   `
-    G
-   GGG
-   G G
-  GG GG
-  GGGGG
+  G
+ GGG
+ G G
+GG GG
+GGGGG
   `,
   `
-   RRR
-  R   R
-  R   R 
-  R   R
-   RRR  
+ RRR
+R   R
+R   R 
+R   R
+ RRR  
   `
 ];
 
