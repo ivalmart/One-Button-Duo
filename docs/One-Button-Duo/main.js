@@ -60,7 +60,6 @@ let player;
 let direction;
 const playerSpeed = 0.5;
 
-let shapeSpeed = 0.25;
 let shapes = [];
 
 class shape {
@@ -84,11 +83,12 @@ class shape {
     // Decide spawn location
     this.y =  -5;
     this.x = Math.random() * G.WIDTH;
+    this.shapeSpeed = Math.random() * 0.5;
     clamp(this.x, 5, G.WIDTH - 5);
   }
 
   move() {
-    this.y += shapeSpeed;
+    this.y += this.shapeSpeed;
     char(this.shapeChar, this.x, this.y);
   }
 
@@ -133,6 +133,8 @@ function update() {
 
   // Move all shapes
   shapes.forEach(s => s.move());
+  // Check if any shapes went off screen
+  shapes.forEach(s => s.checkScreen());
 }
 
 // Player will be moving in a clockwise motion 
