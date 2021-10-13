@@ -106,7 +106,7 @@ class shape {
   checkCollision() {
     if (char(this.shapeChar, this.x, this.y).isColliding.char.a) {
       if (player.shapeChar == this.shapeChar) {
-        score += 1;
+        score += 10;
         play("hit");
         player.setPlayerShape();
         this.reset();
@@ -128,7 +128,7 @@ class PlayerShape {
 
   // Player will be moving in a clockwise motion when pressing button
   update_Direction() {
-    console.log("direction: " + this.direction);
+    play("jump");
     if(this.direction == 'north') { this.direction = 'east'; }   // Head East
     else if(this.direction == 'east') { this.direction = 'south'; }  // Head South
     else if(this.direction == 'south') { this.direction = 'west'; }   // Head West
@@ -147,8 +147,6 @@ class PlayerShape {
     } else if(this.direction == 'west' && this.x >= 5) {
       this.x -= playerSpeed
     }
-
-    play("select");
 
     let offset_X = 0;
     let offset_Y = 0;
@@ -193,7 +191,6 @@ function update() {
 
   // Movement
   player.movement()
-  
   
   if (shapes.length < difficulty * 5) {
     let newShape = new shape();
