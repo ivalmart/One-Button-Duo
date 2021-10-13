@@ -53,7 +53,10 @@ const G = {
 };
 
 options = {
-  theme: 'pixel'
+  theme: 'pixel',
+  isPlayingBgm: true,
+  isReplayEnabled: true,
+  seed: 214
 };
 
 let player;
