@@ -104,9 +104,11 @@ class shape {
     if (char(this.shapeChar, this.x, this.y).isColliding.char.a) {
       if (player.shapeChar == this.shapeChar) {
         score += 1;
+        play("hit");
         player.setPlayerShape();
         this.reset();
       } else {
+        play("lucky");
         end();
       }
     }
@@ -143,18 +145,22 @@ class PlayerShape {
       this.x -= playerSpeed
     }
 
-  particle(
+    play("select");
+
+    let offset_X = 0;
+    let offset_Y = 0;
     // adjusts the offsets for x and y
-    // offset_X = 0;
-    // offset_Y = 0;
-    // if() {}
-    this.x, // x coordinate
-    this.y, // y coordinate
-    1, // The number of particles
-    0.5, // The speed of the particles
-    -PI/2, // The emitting angle
-    PI/4  // The emitting width
-  );
+    if(this.direction == 'west') {offset_X = 2.5} else if(this.direction == 'east') {offset_X = -2.5} else {offset_X = 0}
+    if(this.direction == 'north') {offset_Y = 2.5} else if(this.direction == 'south') {offset_Y = -2.5} else {offset_Y = 0}  
+
+    particle(
+      this.x + offset_X, // x coordinate
+      this.y + offset_Y, // y coordinate
+      0.5, // The number of particles
+      0.25, // The speed of the particles
+      -PI/2, // The emitting angle
+      PI/2  // The emitting width
+    );
   }
 
   setPlayerShape () {
