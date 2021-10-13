@@ -50,11 +50,10 @@ options = {
 let player;
 const playerSpeed = 0.5;
 let shapeSpeed = 0.25;
+let shapes = [];
 
 class shape {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor() {
     this.reset(); 
   }
 
@@ -62,14 +61,19 @@ class shape {
     // Decide the shape
     let shapeNum = Math.floor(Math.random() * 4);
     if (shapeNum == 0) {
-      this.shapeChar = 'b';
+      this.shapeChar = 'a';
     } else if (shapeNum == 1) {
-      this.shapeChar = 'c';
+      this.shapeChar = 'b';
     } else if (shapeNum == 2) {
-      this.shapeChar = 'd';
+      this.shapeChar = 'c';
     } else {
-      this.shapeChar = 'e';
+      this.shapeChar = 'd';
     }
+    
+    // Decide spawn location
+    this.y =  -5;
+    this.x = Math.random() * G.WIDTH;
+    clamp(this.x, 5, G.WIDTH - 5);
   }
 
   move() {
@@ -129,5 +133,11 @@ function update() {
   player.movement()
 
   char("a", player.x, player.y)
+  if (shapes.length < difficulty * 5) {
+    let newShape = new shape();
+    shapes.push(newShape);
+  }
 
+  // Move all shapes
+  shapes.forEach(s => s.move());
 }
