@@ -18,25 +18,25 @@ L y L
   L  
 `,
   `
-PPPPP
-P   P
-P   P
-P   P
-PPPPP
+ppppp
+p   p
+p   p
+p   p
+ppppp
   `
   ,`
-B   B
- B B
-  B
- B B
-B   B
+b   b
+ b b
+  b
+ b b
+b   b
   `,
   `
-  G
- GGG
- G G
-GG GG
-GGGGG
+  g
+ ggg
+ g g
+gg gg
+ggggg
   `,
   `
  RRR
