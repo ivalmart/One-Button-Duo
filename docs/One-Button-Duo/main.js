@@ -117,6 +117,19 @@ class PlayerShape {
     } else if(this.direction == 'west' && this.x >= 5) {
       this.x -= playerSpeed
     }
+
+  particle(
+    // adjusts the offsets for x and y
+    // offset_X = 0;
+    // offset_Y = 0;
+    // if() {}
+    this.x, // x coordinate
+    this.y, // y coordinate
+    1, // The number of particles
+    0.5, // The speed of the particles
+    -PI/2, // The emitting angle
+    PI/4  // The emitting width
+  );
   }
 }
 
