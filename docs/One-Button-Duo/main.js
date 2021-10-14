@@ -14,11 +14,11 @@ Turn Right
 characters = [
   // Player Cursor (a)
 `
-  L  
      
-L y L
      
-  L  
+  y  
+     
+     
 `,
   // Square (b)
   `
@@ -121,7 +121,8 @@ class shape {
   }
 
   checkCollision() {
-    if (char(this.shapeChar, this.x, this.y).isColliding.char.a) {
+    // Checks collision with the hitbox of the player
+    if (char(this.shapeChar, this.x, this.y).isColliding.char.f) {
       if (player.shapeChar == this.shapeChar) {
         score += 10;
         play("hit");
@@ -216,9 +217,9 @@ function update() {
   }
 
   // transparent hitbox
-  // color("transparent");
-  // char("f", player.x, player.y);
-  // Player
+  color("white");
+  char("f", player.x, player.y);
+  // player
   color("black");
   char(player.shapeChar, player.x, player.y);
   // cursor
