@@ -12,43 +12,43 @@ Turn Right
 characters = [
   // Player Cursor (a)
 `
+  L  
      
+L y L
      
-  y  
-     
-     
+  L  
 `,
   // Square (b)
+  `
+bbbbb
+b   b
+b   b
+b   b
+bbbbb
 `
-PPPPP
-P   P
-P   P
-P   P
-PPPPP
-`,
   // Cross (c)
-`
-B   B
- B B
-  B
- B B
-B   B
+,`
+R   R
+ R R
+  R
+ R R
+R   R
 `,
   // Triangle (d)
 `
-  G
- GGG
- G G
-GG GG
-GGGGG
+  g
+ ggg
+ g g
+gg gg
+ggggg
 `,
   // Circle (e)
 `
- RRR
-R   R
-R   R
-R   R
- RRR
+ ppp
+p   p
+p   p
+p   p
+ ppp
 `,
   // Transparent Hitbox (f)
 `
