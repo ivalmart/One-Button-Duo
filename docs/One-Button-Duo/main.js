@@ -5,6 +5,8 @@
 title = "Button Mash";
 
 description = `
+Match Your Shape
+----------
 [Tap]
 Turn Right
 `;
@@ -70,7 +72,7 @@ options = {
   theme: 'pixel',
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 214
+  seed: 100// 214
 };
 
 let player;
@@ -214,8 +216,8 @@ function update() {
   }
 
   // transparent hitbox
-  color("transparent");
-  char("f", player.x, player.y);
+  // color("transparent");
+  // char("f", player.x, player.y);
   // Player
   color("black");
   char(player.shapeChar, player.x, player.y);
