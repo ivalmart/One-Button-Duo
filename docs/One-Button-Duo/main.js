@@ -10,41 +10,55 @@ Turn Right
 `;
 
 characters = [
+  // Player Cursor (a)
 `
-  L  
      
-L y L
      
-  L  
+  y  
+     
+     
 `,
-  `
+  // Square (b)
+`
 PPPPP
 P   P
 P   P
 P   P
 PPPPP
-  `
-  ,`
+`,
+  // Cross (c)
+`
 B   B
  B B
   B
  B B
 B   B
-  `,
-  `
+`,
+  // Triangle (d)
+`
   G
  GGG
  G G
 GG GG
 GGGGG
-  `,
-  `
+`,
+  // Circle (e)
+`
  RRR
 R   R
 R   R
 R   R
  RRR
-  `
+`,
+  // Transparent Hitbox (f)
+`
+lllll
+lllll
+lllll
+lllll
+lllll
+`
+,
 ];
 
 const G = {
@@ -94,6 +108,7 @@ class shape {
 
   move() {
     this.y += this.shapeSpeed;
+    color("black");
     char(this.shapeChar, this.x, this.y);
   }
 
@@ -154,6 +169,7 @@ class PlayerShape {
     if(this.direction == 'west') {offset_X = 2.5} else if(this.direction == 'east') {offset_X = -2.5} else {offset_X = 0}
     if(this.direction == 'north') {offset_Y = 2.5} else if(this.direction == 'south') {offset_Y = -2.5} else {offset_Y = 0}  
 
+    color("light_yellow");
     particle(
       this.x + offset_X, // x coordinate
       this.y + offset_Y, // y coordinate
@@ -197,9 +213,14 @@ function update() {
     shapes.push(newShape);
   }
 
-  char("a", player.x, player.y);
+  // transparent hitbox
+  color("transparent");
+  char("f", player.x, player.y);
+  // Player
+  color("black");
   char(player.shapeChar, player.x, player.y);
-  // Move all shapes
+  // cursor
+  char("a", player.x, player.y);  // Move all shapes
   shapes.forEach(s => s.move());
   // Check if any shapes went off screen
   shapes.forEach(s => s.checkScreen());
